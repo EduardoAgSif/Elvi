@@ -59,7 +59,7 @@ BeautyStore_2.0/          # Élvi Mobile Project
 
 ##  Prerequisites
 
-- **Node.js** (v18+) & **npm**
+- **Node.js** (v20.19+ or v22.12+) & **npm**
 - **Ionic CLI** — `npm install -g @ionic/cli`
 - **XAMPP** (Apache + MySQL) — for the PHP backend
 - **Android Studio** — for building the Android APK (optional)
@@ -105,10 +105,10 @@ BeautyStore_2.0/          # Élvi Mobile Project
 3. **Run the development server:**
 
    ```bash
-   ionic serve
+   npm start
    ```
 
-   The app will open at `http://localhost:8100`.
+   Open `http://localhost:4200` in Firefox (including Firefox 159.0.1). Keep the terminal running while you use the app.
 
 ---
 
@@ -130,7 +130,9 @@ BeautyStore_2.0/          # Élvi Mobile Project
 
 En POST, copia el `id` de la respuesta y úsalo en las solicitudes PUT, PATCH y DELETE. Usa un producto de prueba para DELETE: la eliminación en la base de datos es permanente. Las respuestas esperadas son `200` para GET, PUT, PATCH y DELETE, y `201` para POST. En Postman, la barra de respuesta muestra el estado HTTP y las pestañas **Body** y **Headers** muestran los detalles para revisar o capturar evidencia.
 
-La URL del backend que consume la aplicación se configura en `DEFAULT_CONFIG` de `src/app/services/data-source-config.service.ts` (`localhost`, puerto `80`, ruta `/backend`). Si el servidor está en otro host, actualiza esa constante y vuelve a compilar la app. Postman instalado en el mismo equipo que XAMPP puede utilizar `localhost`.
+La URL del backend que consume la aplicación se configura en `DEFAULT_CONFIG` de `src/app/services/data-source-config.service.ts` (`localhost`, puerto `80`, ruta `/backend`). Si el servidor está en otro host, actualiza esa constante y vuelve a compilar la app. Postman instalado en el mismo equipo que XAMPP puede utilizar `localhost`. Para el emulador Android, usa `10.0.2.2` como host para acceder al `localhost` de la computadora; en un dispositivo físico, usa la IP local de la computadora y asegúrate de que ambos estén en la misma red.
+
+La documentación detallada de productos y autenticación está en [backend/API_ENDPOINTS.md](backend/API_ENDPOINTS.md).
 
 ---
 
@@ -160,10 +162,18 @@ Then build and run from Android Studio on an emulator or physical device.
 
 ---
 
+## Unit 2 delivery and AI log
+
+- [Unit 2 checklist .txt](Unit%202%20checklist%20.txt): evidence, test instructions, and APK/demo steps.
+- [BITACORA_IA.txt](BITACORA_IA.txt): AI use recorded for this repository update.
+
+---
+
 ##  Available Scripts
 
 | Command              | Description                                |
 | -------------------- | ------------------------------------------ |
+| `npm start`          | Start Angular's dev server at `http://localhost:4200` |
 | `ionic serve`        | Start the dev server in the browser        |
 | `npm run build`      | Build the production bundle                |
 | `npm run test`       | Run unit tests                             |

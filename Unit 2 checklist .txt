@@ -1,0 +1,150 @@
+UNIT 2 - CHECKLIST DE REVISION Y GUIA PARA EXAMEN
+Proyecto: Elvi (Ionic + Angular + Capacitor / PHP + MySQL)
+Fecha de revision: 2026-11-05
+
+ESTADO DEL PROYECTO
+La demo web compila y las pruebas unitarias pasan (12 pruebas). Puede ejecutarse
+con `npm start` en `http://localhost:4200`.
+La carpeta Android esta en el repositorio, pero NO se encontro un APK compilado.
+La sincronizacion de Capacitor finalizo correctamente; no se pudo compilar el APK
+porque Java no esta instalado/configurado (`JAVA_HOME` no esta definido).
+La prueba en emulador o dispositivo y la generacion del APK quedan pendientes.
+
+LISTA DE REQUISITOS Y EVIDENCIA
+
+[x] Arquitectura Cliente-Servidor
+    Cliente: Ionic/Angular en src/app.
+    Servidor: endpoints PHP en backend/; MySQL/MariaDB guarda usuarios y productos.
+    La app llama al servidor mediante ProductService y DataSourceConfigService.
+
+[x] API REST
+    backend/api.php expone GET, POST, PUT, PATCH y DELETE sobre productos.
+    backend/login.php y backend/signup.php exponen autenticacion/registro.
+    Contratos, cuerpos JSON y codigos HTTP: backend/API_ENDPOINTS.md.
+
+[x] CRUD remoto
+    El backend hace CRUD persistente sobre MySQL y ProductService tiene los metodos
+    createProduct, replaceProduct, patchProduct y deleteProduct.
+    El catalogo de la interfaz consume GET; las operaciones remotas de escritura
+    se pueden demostrar con Postman. No hay panel de administracion CRUD en la UI.
+    Usa un producto de prueba: no borres productos de demostracion.
+
+[x] Persistencia local
+    StorageService usa Capacitor Preferences (nativo) y localStorage (web).
+    Se persisten el cache del catalogo, el carrito, la sesion y las direcciones.
+
+[x] Sincronizacion (catalogo)
+    Al cargar/refrescar, el cliente obtiene productos remotos y guarda el cache.
+    Si no hay red o falla el servidor, usa cache local y luego catalogo de respaldo.
+    Alcance: sincroniza el catalogo descargandolo; no hay cola/reintento de cambios
+    CRUD hechos offline ni resolucion de conflictos.
+
+[x] Manejo de errores de red
+    DataSourceConfigService aplica timeout, captura diagnosticos HTTP/red y los
+    expone al cliente. ProductService registra el fallo y permite usar el cache.
+    Probar apagando Apache o desconectando la red tras cargar el catalogo.
+
+[x] Elemento multimedia
+    La interfaz muestra imagenes locales de productos en src/assets/products/.
+    Hay galeria, tarjetas y vistas de producto; las imagenes son multimedia visual.
+    No se encontro video/audio integrado.
+
+[x] Interfaz funcional
+    Catalogo, busqueda, filtros, detalle rapido, carrito, cupones, checkout de
+    demostracion, perfil/direcciones y acceso/registro estan en las pantallas Ionic.
+
+[x] Repositorio
+    El codigo y las instrucciones estan en el repositorio Git del proyecto.
+    Antes de entregar, verifica `git status` y que no haya credenciales privadas,
+    archivos temporales ni datos personales en los cambios.
+
+[x] Demostracion web / [ ] APK Android
+    Demo disponible con `npm start` en `http://localhost:4200`; build probado.
+    No existe APK compilado en android/app/build/outputs/apk/. Para generarlo,
+    sigue "GENERAR APK" abajo e incluye el APK/capturas si la entrega lo solicita.
+    Confirma la URL del backend en el APK.
+
+[x] Documentacion de endpoints
+    backend/API_ENDPOINTS.md describe productos, autenticacion, ejemplos y errores.
+    README.md tambien incluye pasos para XAMPP y pruebas de CRUD con Postman.
+
+[x] Bitacora de IA
+    BITACORA_IA.txt registra el uso de IA correspondiente a esta revision.
+    Agrega tus propias consultas/decisiones de otras sesiones; no atribuyas a IA
+    trabajo que no haya realizado ni incluyas claves o datos sensibles.
+
+PREPARACION LOCAL
+
+1. Instala Node.js 20.19+ o 22.12+, npm, Java compatible con Android Gradle Plugin,
+   Android Studio y Android SDK. Abre Android Studio una vez y acepta las licencias.
+2. En la raiz del proyecto:
+       npm install
+       npm run build
+       npm test -- --watch=false
+3. En XAMPP inicia Apache y MySQL; importa backend/schema.sql en phpMyAdmin.
+4. Configura src/app/services/data-source-config.service.ts para el dispositivo:
+       Emulador Android: host 10.0.2.2
+       Telefono fisico: IP local de la computadora, en la misma red Wi-Fi
+       Navegador/Postman en la computadora: localhost
+   Verifica tambien protocolo, puerto y ruta /backend, y vuelve a compilar tras
+   cambiar la configuracion. Apache/firewall deben permitir el acceso desde el movil.
+
+GENERAR APK DEBUG
+
+Desde PowerShell en la raiz del repositorio:
+       npm run build
+       npx cap sync android
+       .\android\gradlew.bat -p android assembleDebug
+
+Validacion en este entorno (2026-11-05): `npm run build`, las pruebas y
+`npx cap sync android` finalizaron correctamente. El ultimo comando no puede
+ejecutarse sin instalar/configurar Java (`JAVA_HOME`).
+
+El APK esperado es:
+       android\app\build\outputs\apk\debug\app-debug.apk
+
+Instala el APK en un emulador o dispositivo Android y confirma que puede abrir el
+catalogo, mostrar imagenes y conservar carrito/direcciones. En un telefono, debe
+estar accesible el backend PHP mediante la IP de la computadora. No basta con
+compilar: prueba una llamada real y tambien el modo sin conexion.
+
+GUIA DE DEMOSTRACION (5-8 MIN)
+
+1. Explica las capas: interfaz Ionic (src/app), servicios/consumo HTTP, API PHP
+   (backend) y persistencia MySQL; muestra el modelo Producto.
+2. Inicia XAMPP y enseña GET /backend/api.php en navegador o Postman (JSON de
+   productos y codigo 200).
+3. Abre la app; busca/filtra un producto, abre su detalle, agrega al carrito y
+   muestra una imagen local. Indica donde se guarda el carrito localmente.
+4. Desconecta Apache o la red despues de cargar el catalogo; recarga la pantalla
+   y explica el cache/fallback y como se presentan los errores de red.
+5. En Postman demuestra POST de un producto temporal, PUT, PATCH y DELETE solo
+   sobre ese registro. Explica verbo HTTP, URL/ID, JSON y status de cada operacion.
+6. Finaliza explicando una limitacion real: las modificaciones offline no se
+   ponen en cola para sincronizar despues.
+
+PRACTICA PARA EL CAMBIO SENCILLO DEL EXAMEN
+
+Opcion recomendada (consumo): agrega un metodo en ProductService para consultar
+GET api.php?id=ID, valida status/data, y muestra el producto desde la UI. Sigue
+el patron de request/listApiProducts y agrega una prueba unitaria en
+src/app/services/product.service.spec.ts. Prueba primero en Postman.
+
+Opcion alternativa (endpoint): agrega un campo sencillo, por ejemplo category,
+al PATCH de backend/api.php, valida el valor, actualiza el SQL y el modelo/cliente
+si aplica. Prueba un caso correcto, campo invalido, ID inexistente y codigo HTTP.
+No cambies los contratos existentes ni trabajes directamente sobre datos seed.
+
+Para cualquier opcion: identifica ruta y verbo, define entrada/salida JSON,
+implementa validacion, agrega/prueba un test, verifica la llamada en Postman y
+explica el cambio siguiendo el flujo UI -> servicio -> API -> base de datos.
+
+ARCHIVOS QUE CONVIENE TENER ABIERTOS PARA DEFENSA
+
+    src/app/services/product.service.ts
+    src/app/services/data-source-config.service.ts
+    src/app/services/storage.service.ts
+    backend/api.php
+    backend/schema.sql
+    backend/API_ENDPOINTS.md
+    BITACORA_IA.txt

@@ -1,0 +1,59 @@
+BITACORA DE USO DE INTELIGENCIA ARTIFICIAL
+Proyecto: Elvi / BeautyStore_2.0
+Fecha: 2026-11-01
+
+Registro de esta revision
+
+Herramienta: asistente de IA integrado en VS Code (Copilot SDK).
+
+Solicitud:
+Revisar el proyecto contra los requisitos de Unidad 2 (cliente-servidor, REST,
+CRUD remoto, persistencia local, sincronizacion, errores de red, multimedia,
+interfaz, repositorio, APK/demostracion, documentacion de endpoints y bitacora)
+y preparar instrucciones para la defensa y el cambio sencillo de endpoint.
+
+Trabajo asistido por IA en esta sesion:
+- Inspeccion del frontend Ionic/Angular, servicios de productos y almacenamiento,
+  endpoints PHP, configuracion Capacitor, README y pruebas existentes.
+- Verificacion del build web y ejecucion de pruebas unitarias.
+- Creacion de backend/API_ENDPOINTS.md, Unit 2 checklist .txt y este registro.
+- Actualizacion del README con referencias a la documentacion y configuracion
+  de host para emulador/dispositivo.
+
+Validacion observada:
+- `npm run build`: correcto; el compilador emitio avisos de navegadores antiguos
+  y presupuesto SCSS excedido.
+- `npm test -- --watch=false`: 7 archivos y 12 pruebas pasaron. JSDOM tambien
+  mostro un AggregateError de red durante la ejecucion.
+- No se genero APK en esta sesion: Java/Android Studio no estaban disponibles en
+  el entorno. Consultar Unit 2 checklist .txt para compilarlo localmente.
+
+Revision humana requerida:
+El equipo debe revisar los cambios, ejecutar la app/backend en su propio entorno,
+validar las instrucciones y completar la demostracion APK. Esta bitacora solo
+describe el trabajo asistido registrado aqui; no reemplaza registros de sesiones
+anteriores ni debe completarse con afirmaciones no verificadas.
+
+Validacion complementaria - 2026-11-05
+
+Herramienta: asistente de IA integrado en VS Code (Copilot SDK).
+
+Trabajo realizado:
+- Se contrastaron los requisitos con los servicios de producto/almacenamiento,
+  pantallas Ionic, endpoints PHP, recursos multimedia y configuracion Android.
+- Se genero el build web y se sincronizaron los recursos compilados con Android
+  mediante Capacitor.
+- Se ajusto el checklist para distinguir la demostracion web disponible del APK
+  Android que sigue pendiente.
+
+Validacion observada:
+- `npm run build`: correcto.
+- `npm test -- --watch=false`: 7 archivos y 12 pruebas pasaron; JSDOM registro
+  un AggregateError de red durante la ejecucion.
+- `npx cap sync android`: correcto.
+- `.\android\gradlew.bat -p android assembleDebug`: no pudo iniciar porque no hay
+  Java disponible en PATH ni `JAVA_HOME`; no se genero APK.
+
+Pendiente del equipo:
+Instalar/configurar un JDK compatible con Android Gradle Plugin y generar/probar
+el APK en emulador o dispositivo. La demo web puede iniciarse con `npm start`.

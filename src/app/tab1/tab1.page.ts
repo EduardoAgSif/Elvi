@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Product } from '../models/product.model';
 import { ProductService } from '../services/product.service';
@@ -14,13 +14,19 @@ export interface HeroSlide {
   category: string;
 }
 
+export interface ModelSlide {
+  id: number;
+  imageUrl: string;
+  alt: string;
+}
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   standalone: false,
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, OnDestroy {
   private productService = inject(ProductService);
   private cartService = inject(CartService);
   private toastController = inject(ToastController);
@@ -37,6 +43,23 @@ export class Tab1Page implements OnInit {
   selectedProduct: Product | null = null;
   isQuickViewOpen = false;
   modalQuantity = 1;
+
+  // Web Hero Model Carousel Slides
+  modelSlides: ModelSlide[] = [
+    {
+      id: 1,
+      imageUrl: 'assets/Models/Model 1.jpg',
+      alt: 'Élvi Botanical Skincare Model'
+    },
+    {
+      id: 2,
+      imageUrl: 'assets/Models/Model 2.jpg',
+      alt: 'Élvi Radiant Natural Beauty Model'
+    }
+  ];
+  currentModelIndex = 0;
+  private modelCarouselTimer: any = null;
+  private isCarouselPaused = false;
 
   heroSlides: HeroSlide[] = [
     {
@@ -86,6 +109,40 @@ export class Tab1Page implements OnInit {
     this.isLoading = false;
 
     this.loadProducts();
+    this.startModelCarousel();
+  }
+
+  ngOnDestroy() {
+    this.stopModelCarousel();
+  }
+
+  startModelCarousel() {
+    this.stopModelCarousel();
+    this.modelCarouselTimer = setInterval(() => {
+      if (!this.isCarouselPaused && this.modelSlides.length > 1) {
+        this.currentModelIndex = (this.currentModelIndex + 1) % this.modelSlides.length;
+      }
+    }, 5000);
+  }
+
+  stopModelCarousel() {
+    if (this.modelCarouselTimer) {
+      clearInterval(this.modelCarouselTimer);
+      this.modelCarouselTimer = null;
+    }
+  }
+
+  pauseModelCarousel() {
+    this.isCarouselPaused = true;
+  }
+
+  resumeModelCarousel() {
+    this.isCarouselPaused = false;
+  }
+
+  setCurrentModel(index: number) {
+    this.currentModelIndex = index;
+    this.startModelCarousel();
   }
 
   onSlideClick(slide: HeroSlide) {

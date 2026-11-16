@@ -16,11 +16,20 @@
 
 .cart-content {
   --background: transparent;
+  --padding-bottom: 96px;
+
+  @media (min-width: 768px) {
+    --padding-bottom: 24px;
+  }
 }
 
 .cart-page-wrapper {
   padding-top: 24px;
-  padding-bottom: 60px;
+  padding-bottom: 96px;
+
+  @media (min-width: 768px) {
+    padding-bottom: 40px;
+  }
 }
 
 .cart-header-title {

@@ -203,35 +203,35 @@ ion-tabs {
 @media (max-width: 767.98px) {
   .mobile-tab-bar {
     position: absolute !important;
-    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: calc(100% - 32px) !important;
-    max-width: 380px !important;
-    height: 62px !important;
-    border-radius: 36px !important;
+    max-width: 320px !important;
+    height: 56px !important;
+    border-radius: 32px !important;
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: space-around !important;
 
     // iOS 27 Ultra-translucent Frosted Glassmorphism
-    background: rgba(255, 255, 255, 0.65) !important;
-    --background: rgba(255, 255, 255, 0.65) !important;
+    background: rgba(255, 255, 255, 0.68) !important;
+    --background: rgba(255, 255, 255, 0.68) !important;
     backdrop-filter: blur(28px) saturate(210%) contrast(95%) !important;
     -webkit-backdrop-filter: blur(28px) saturate(210%) contrast(95%) !important;
 
     // Specular glass highlight border & floating ambient shadow
-    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
     box-shadow:
-      0 16px 38px rgba(27, 67, 50, 0.12),
-      0 6px 18px rgba(0, 0, 0, 0.05),
+      0 14px 34px rgba(27, 67, 50, 0.12),
+      0 4px 14px rgba(0, 0, 0, 0.05),
       inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
       inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4) !important;
 
-    padding: 6px 10px !important;
+    padding: 4px 8px !important;
     box-sizing: border-box !important;
-    z-index: 1000 !important;
+    z-index: 90 !important;
     overflow: hidden !important;
 
     ion-tab-button {
@@ -240,10 +240,10 @@ ion-tabs {
       flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
-      height: 48px !important;
-      max-width: 90px !important;
-      margin: 0 4px !important;
-      border-radius: 24px !important;
+      height: 44px !important;
+      max-width: 76px !important;
+      margin: 0 2px !important;
+      border-radius: 22px !important;
       padding: 0 !important;
       background: transparent !important;
       --background: transparent !important;
@@ -254,7 +254,7 @@ ion-tabs {
       transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
 
       ion-icon {
-        font-size: 1.65rem !important;
+        font-size: 1.55rem !important;
         display: inline-block !important;
         color: inherit !important;
         transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease !important;
@@ -270,7 +270,7 @@ ion-tabs {
 
         ion-icon {
           color: #1b4332 !important;
-          transform: scale(1.14) translateY(-1px) !important;
+          transform: scale(1.12) translateY(-1px) !important;
         }
       }
 

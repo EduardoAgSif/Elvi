@@ -307,25 +307,27 @@
                       <span>Dermatologically Tested</span>
                     </div>
                   </div>
-                  <div class="quantity-selector-row">
-                    <span class="qty-label">Quantity:</span>
-                    <div class="stepper">
-                      <button (click)="decrementModalQty()" [disabled]="modalQuantity <= 1">
-                        <ion-icon name="remove-outline"></ion-icon>
-                      </button>
-                      <span class="qty-num">{{ modalQuantity }}</span>
-                      <button (click)="incrementModalQty()" [disabled]="modalQuantity >= selectedProduct.stock">
-                        <ion-icon name="add-outline"></ion-icon>
-                      </button>
+                  <div class="modal-actions-container">
+                    <div class="quantity-selector-row">
+                      <span class="qty-label">Qty:</span>
+                      <div class="stepper">
+                        <button (click)="decrementModalQty()" [disabled]="modalQuantity <= 1" aria-label="Decrease quantity">
+                          <ion-icon name="remove-outline"></ion-icon>
+                        </button>
+                        <span class="qty-num">{{ modalQuantity }}</span>
+                        <button (click)="incrementModalQty()" [disabled]="modalQuantity >= selectedProduct.stock" aria-label="Increase quantity">
+                          <ion-icon name="add-outline"></ion-icon>
+                        </button>
+                      </div>
                     </div>
+                    <button
+                      class="btn-codepen-primary modal-buy-btn"
+                      (click)="addToCart(selectedProduct, $event, modalQuantity)"
+                      >
+                      <ion-icon name="bag-add-outline"></ion-icon>
+                      Add {{ modalQuantity }} to Bag • ${{ (selectedProduct.price * modalQuantity) | number:'1.2-2' }}
+                    </button>
                   </div>
-                  <button
-                    class="btn-codepen-primary modal-buy-btn"
-                    (click)="addToCart(selectedProduct, $event, modalQuantity)"
-                    >
-                    <ion-icon name="bag-add-outline"></ion-icon>
-                    Add {{ modalQuantity }} to Bag • ${{ (selectedProduct.price * modalQuantity) | number:'1.2-2' }}
-                  </button>
                 </div>
               </div>
             </div>

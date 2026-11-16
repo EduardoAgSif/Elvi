@@ -952,23 +952,35 @@
   }
 }
 
-// Quick View Modal
+// Quick View Modal - Ergonomically Centered with iOS Frosted Glass & Safe Margins
 .quick-view-modal {
-  --width: 92%;
-  --max-width: 680px;
+  --width: 90%;
+  --max-width: 600px;
   --height: auto;
-  --border-radius: 24px;
+  --max-height: min(80vh, 600px);
+  --border-radius: 28px;
   --background: transparent;
   --box-shadow: none;
   --border-color: transparent;
   --border-width: 0;
+  z-index: 20000 !important;
   outline: none !important;
+
+  &::part(backdrop) {
+    background: rgba(18, 32, 24, 0.48);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 
   &::part(content) {
     background: transparent;
     box-shadow: none;
     border: none;
     outline: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
   }
 
   &:focus,
@@ -982,16 +994,33 @@
 
   .modal-wrapper {
     position: relative;
-    padding: 24px;
-    background: rgba(255, 255, 255, 0.40);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.60);
+    padding: 18px 20px;
+    max-height: min(80vh, 590px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.88);
     box-shadow:
-      0 16px 48px rgba(100, 90, 80, 0.14),
-      inset 0 1px 0 rgba(255, 255, 255, 0.70);
-    border-radius: 24px;
+      0 24px 60px rgba(27, 67, 50, 0.20),
+      0 8px 24px rgba(0, 0, 0, 0.08),
+      inset 0 1px 1.5px rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+    width: 100%;
+    box-sizing: border-box;
     outline: none !important;
+
+    // Sleek subtle scrollbar
+    scrollbar-width: thin;
+    scrollbar-color: rgba(45, 106, 79, 0.25) transparent;
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(45, 106, 79, 0.25);
+      border-radius: 4px;
+    }
 
     &:focus,
     &:focus-visible {
@@ -1007,39 +1036,48 @@
 
     .close-modal-btn {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      background: #faf6f0;
-      border: 1px solid #e8ded2;
-      width: 36px;
-      height: 36px;
+      top: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(232, 222, 210, 0.8);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #be9b7b;
-      font-size: 1.25rem;
+      color: #2d6a4f;
+      font-size: 1.15rem;
       z-index: 10;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #ffffff;
+        transform: scale(1.08);
+      }
     }
 
     .modal-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 14px;
 
       @media (min-width: 600px) {
-        grid-template-columns: 260px 1fr;
+        grid-template-columns: 230px 1fr;
+        gap: 20px;
       }
 
       .modal-image-wrap {
-        border-radius: 16px;
+        border-radius: 18px;
         overflow: hidden;
-        height: 240px;
-        border: 1px solid #e8ded2;
+        height: 155px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 
         @media (min-width: 600px) {
-          height: 320px;
+          height: 280px;
         }
 
         img {
@@ -1054,17 +1092,19 @@
         flex-direction: column;
 
         .modal-category {
-          color: #9e7d5e;
-          font-size: 0.8rem;
+          color: #2d6a4f;
+          font-size: 0.72rem;
           font-weight: 700;
+          letter-spacing: 1px;
           text-transform: uppercase;
         }
 
         h2 {
-          font-size: 1.35rem;
+          font-size: 1.2rem;
           font-weight: 800;
-          color: #2e2926;
-          margin: 4px 0 8px;
+          color: #1b4332;
+          margin: 2px 0 4px;
+          line-height: 1.25;
         }
 
         .modal-rating {
@@ -1072,98 +1112,125 @@
           align-items: center;
           gap: 2px;
           color: #be9b7b;
-          font-size: 0.85rem;
-          margin-bottom: 12px;
+          font-size: 0.78rem;
+          margin-bottom: 6px;
 
           .rating-text {
             color: #85796f;
             margin-left: 6px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
           }
         }
 
         .modal-price {
-          font-size: 1.6rem;
+          font-size: 1.35rem;
           font-weight: 800;
-          color: #9e7d5e;
-          margin-bottom: 10px;
+          color: #1b4332;
+          margin-bottom: 6px;
         }
 
         .modal-description {
-          font-size: 0.88rem;
-          color: #6b635b;
-          line-height: 1.5;
-          margin-bottom: 14px;
+          font-size: 0.8rem;
+          color: #5c534a;
+          line-height: 1.4;
+          margin-bottom: 8px;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .beauty-benefits {
           display: flex;
           flex-direction: column;
-          gap: 6px;
-          margin-bottom: 16px;
+          gap: 4px;
+          margin-bottom: 12px;
 
           .benefit-item {
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.82rem;
-            color: #438a5e;
+            font-size: 0.76rem;
+            color: #2d6a4f;
             font-weight: 500;
 
             ion-icon {
-              font-size: 1rem;
+              font-size: 0.95rem;
             }
           }
         }
 
-        .quantity-selector-row {
+        .modal-actions-container {
           display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 18px;
+          flex-direction: column;
+          gap: 10px;
 
-          .qty-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #2e2926;
+          @media (min-width: 440px) {
+            flex-direction: row;
+            align-items: center;
           }
 
-          .stepper {
-            display: inline-flex;
+          .quantity-selector-row {
+            display: flex;
             align-items: center;
-            border: 1px solid #e8ded2;
-            border-radius: 12px;
-            overflow: hidden;
+            gap: 8px;
 
-            button {
-              background: #faf6f0;
-              border: none;
-              width: 34px;
-              height: 34px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              cursor: pointer;
-              color: #be9b7b;
-
-              &:disabled {
-                opacity: 0.4;
-                cursor: not-allowed;
-              }
-            }
-
-            .qty-num {
-              width: 36px;
-              text-align: center;
-              font-weight: 700;
-              font-size: 0.9rem;
+            .qty-label {
+              font-size: 0.82rem;
+              font-weight: 600;
               color: #2e2926;
             }
-          }
-        }
 
-        .modal-buy-btn {
-          width: 100%;
+            .stepper {
+              display: inline-flex;
+              align-items: center;
+              border: 1px solid #e0d5c7;
+              border-radius: 12px;
+              overflow: hidden;
+              background: #faf6f0;
+
+              button {
+                background: #faf6f0;
+                border: none;
+                width: 34px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                color: #2d6a4f;
+                transition: background 0.15s ease;
+
+                &:active {
+                  background: #eddccb;
+                }
+
+                &:disabled {
+                  opacity: 0.4;
+                  cursor: not-allowed;
+                }
+              }
+
+              .qty-num {
+                width: 30px;
+                text-align: center;
+                font-weight: 700;
+                font-size: 0.88rem;
+                color: #2e2926;
+              }
+            }
+          }
+
+          .modal-buy-btn {
+            flex: 1 1 auto;
+            width: 100%;
+            min-height: 44px;
+            font-size: 0.88rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+          }
         }
       }
     }

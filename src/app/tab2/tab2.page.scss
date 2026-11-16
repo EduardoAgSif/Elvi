@@ -485,7 +485,23 @@
   --width: 90%;
   --max-width: 480px;
   --height: auto;
-  --border-radius: 24px;
+  --max-height: min(80vh, 520px);
+  --border-radius: 28px;
+  z-index: 20000 !important;
+
+  &::part(backdrop) {
+    background: rgba(18, 32, 24, 0.48);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  &::part(content) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 28px;
+  }
 
   .success-modal-content {
     background: #ffffff;

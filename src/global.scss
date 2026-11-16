@@ -135,3 +135,16 @@ ion-modal::part(content):focus-visible {
   outline: none !important;
   box-shadow: none !important;
 }
+
+/* Ensure modal overlays always sit above floating bottom navigation bars */
+ion-modal {
+  z-index: 10000 !important;
+}
+
+ion-alert {
+  z-index: 11000 !important;
+}
+
+ion-toast {
+  z-index: 12000 !important;
+}

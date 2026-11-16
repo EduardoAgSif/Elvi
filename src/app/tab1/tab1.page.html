@@ -42,45 +42,6 @@
 
   <!-- Hero Banner -->
   <section class="hero-section">
-    <!-- Web Hero Model Carousel (Desktop / Web Version) -->
-    <div 
-      class="hero-model-carousel" 
-      (mouseenter)="pauseModelCarousel()" 
-      (mouseleave)="resumeModelCarousel()"
-      aria-label="Élvi Models Showcase">
-      <div class="carousel-track">
-        @for (model of modelSlides; track model.id; let i = $index) {
-          <div 
-            class="carousel-slide" 
-            [class.active]="i === currentModelIndex"
-            [attr.aria-hidden]="i !== currentModelIndex">
-            <img 
-              [src]="model.imageUrl" 
-              [alt]="model.alt" 
-              class="model-image"
-              loading="eager"
-            />
-          </div>
-        }
-      </div>
-
-      <!-- Soft gradient overlay ensuring seamless fade towards the left text -->
-      <div class="carousel-fade-overlay" aria-hidden="true"></div>
-
-      <!-- Carousel indicators -->
-      <div class="carousel-indicators">
-        @for (model of modelSlides; track model.id; let i = $index) {
-          <button 
-            type="button" 
-            class="indicator-dot" 
-            [class.active]="i === currentModelIndex"
-            (click)="setCurrentModel(i)"
-            [attr.aria-label]="'Go to model photo ' + (i + 1)">
-          </button>
-        }
-      </div>
-    </div>
-
     <div class="ecom-container hero-container">
       <div class="hero-text-content">
         <span class="hero-tag">🌿 Élvi Botanical Collection 2026</span>
@@ -100,28 +61,46 @@
         </div>
       </div>
 
-      <!-- Mobile Product Gallery (Only displayed on mobile screens < 768px) -->
-      <div class="hero-product-gallery">
-        @for (slide of heroSlides; track slide) {
-          <button
-            class="hero-product-tile"
-            type="button"
-            (click)="onSlideClick(slide)"
-            [attr.aria-label]="'View ' + slide.title"
-            >
-            <img
-              [src]="getSlideImage(slide)"
-              [alt]="slide.title"
-              loading="eager"
-              referrerpolicy="no-referrer-when-downgrade"
-              (error)="$any($event.target).style.visibility='hidden'"
+      <!-- Hero Model Carousel (Responsive Mobile & Desktop) -->
+      <div 
+        class="hero-model-carousel" 
+        (mouseenter)="pauseModelCarousel()" 
+        (mouseleave)="resumeModelCarousel()"
+        aria-label="Élvi Models Showcase">
+        <div class="carousel-track">
+          @for (model of modelSlides; track model.id; let i = $index) {
+            <div 
+              class="carousel-slide" 
+              [class.active]="i === currentModelIndex"
+              [attr.aria-hidden]="i !== currentModelIndex">
+              <img 
+                [src]="model.imageUrl" 
+                [alt]="model.alt" 
+                class="model-image"
+                loading="eager"
               />
-              <span class="hero-product-label">{{ slide.title }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- Gradient overlay -->
+        <div class="carousel-fade-overlay" aria-hidden="true"></div>
+
+        <!-- Carousel indicators -->
+        <div class="carousel-indicators">
+          @for (model of modelSlides; track model.id; let i = $index) {
+            <button 
+              type="button" 
+              class="indicator-dot" 
+              [class.active]="i === currentModelIndex"
+              (click)="setCurrentModel(i)"
+              [attr.aria-label]="'Go to model photo ' + (i + 1)">
             </button>
           }
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
     <div class="ecom-container">
       <!-- Dedicated Hero Spotlight: Best Sellers Section -->
